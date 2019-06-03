@@ -5,6 +5,7 @@ import com.licenta.project.business.dto.UserDTO;
 import com.licenta.project.business.object_transformations.UserTransformation;
 import com.licenta.project.entities.User;
 import com.licenta.project.repositories.UserRepository;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -12,6 +13,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -54,6 +56,29 @@ public class UserServiceImpl implements UserService {
 
         if(user == null) return userTransformation.transform(new User());
         return userTransformation.transform(user);
+    }
+
+    @Override
+    public UserDTO updateReadArticles(UserDTO userDTO, int number) {
+        User user = userRepository.findByEmailAndPassword(userDTO.getEmail(), userDTO.getPassword());
+        if(user != null){
+            int readArticles = user.getReadArticles();
+            user.setReadArticles(readArticles + number);
+
+            return userTransformation.transform(userRepository.save(user));
+        }
+        return null;
+    }
+
+    @Override
+    public UserDTO updateFavoriteArticles(UserDTO userDTO) {
+        User user = userRepository.findByEmailAndPassword(userDTO.getEmail(), userDTO.getPassword());
+        if(user != null){
+            user.setFavoriteArticles(userDTO.getFavoriteArticles());
+
+            return userTransformation.transform(userRepository.save(user));
+        }
+        return null;
     }
 
     //encoding done with SHA-256

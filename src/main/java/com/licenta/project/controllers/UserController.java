@@ -50,4 +50,17 @@ public class UserController {
             return false;
         }
     }
+
+    @RequestMapping(value= "/update/readArticles", method = RequestMethod.POST, headers= "Accept=application/json")
+    @ResponseBody
+    public UserDTO updateReadArticles(@RequestParam(value = "number") int number,
+                                      @RequestBody UserDTO userDTO){
+        return userService.updateReadArticles(userDTO, number);
+    }
+
+    @RequestMapping(value = "/update/favoriteArticle", method = RequestMethod.POST, headers = "Accept=application/json")
+    @ResponseBody
+    public UserDTO updateFavoriteArticles(@RequestBody UserDTO userDTO){
+        return userService.updateFavoriteArticles(userDTO);
+    }
 }

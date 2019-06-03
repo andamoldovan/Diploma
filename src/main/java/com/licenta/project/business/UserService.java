@@ -13,4 +13,8 @@ public interface UserService {
     void deleteUser(UserDTO userDTO);
 
     UserDTO login(String email, String password);
+
+    UserDTO updateReadArticles(UserDTO userDTO, int number);
+
+    UserDTO updateFavoriteArticles(UserDTO userDTO);
 }

@@ -76,14 +76,18 @@ public class TopHeadlinesController {
             List<ArticleDTO> result = new ArrayList<>();
             for(int i = (chunkNumber - 1)*chunkSize; i < (chunkNumber * chunkSize) - 1; i++){
                 result.add(articles.get(i));
-//                System.out.println(articles.get(i));
             }
             return result;
         }catch(Exception e){
             e.printStackTrace();
         }
-
         return null;
     }
-    
+
+    @RequestMapping(value = "/favorites/getArticle", method = RequestMethod.POST, headers = "Accept=application/json")
+    @ResponseBody
+    public ArticleDTO getArticle(@RequestBody ArticleDTO articleDTO){
+        articleService.setCollection("articles");
+        return articleService.getArticleById(articleDTO.getId());
+    }
 }

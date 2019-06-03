@@ -12,4 +12,6 @@ public interface ArticleService {
 
     List<ArticleDTO> getArticlesByTitle(String title);
 
+    ArticleDTO getArticleById(String id);
+
 }

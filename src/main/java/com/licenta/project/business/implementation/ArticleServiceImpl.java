@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -39,14 +40,18 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<ArticleDTO> getArticlesByTitle(String title) {
-//        articleRepository.setCollectionName("articles");
-        System.out.println("COLLECTION NAME");
-        System.out.println(this.articleRepository.getCollectionName());
         List<Article> articles = articleRepository.findArticleByTitleRegex(title);
         List<ArticleDTO> result = new ArrayList<>();
         for(Article a : articles){
             result.add(articleTransformation.transform(a));
         }
         return result;
+    }
+
+    @Override
+    public ArticleDTO getArticleById(String id) {
+        Optional<Article> art = articleRepository.findById(id);
+        if(art.get() == null) return null;
+        return articleTransformation.transform(art.get());
     }
 }
