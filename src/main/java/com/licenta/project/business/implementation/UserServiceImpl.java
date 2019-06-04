@@ -59,11 +59,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO updateReadArticles(UserDTO userDTO, int number) {
+    public UserDTO updateReadArticles(UserDTO userDTO) {
         User user = userRepository.findByEmailAndPassword(userDTO.getEmail(), userDTO.getPassword());
         if(user != null){
-            int readArticles = user.getReadArticles();
-            user.setReadArticles(readArticles + number);
+            user.setReadArticles(userDTO.getReadArticles());
 
             return userTransformation.transform(userRepository.save(user));
         }

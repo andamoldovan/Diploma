@@ -14,7 +14,7 @@ public interface UserService {
 
     UserDTO login(String email, String password);
 
-    UserDTO updateReadArticles(UserDTO userDTO, int number);
+    UserDTO updateReadArticles(UserDTO userDTO);
 
     UserDTO updateFavoriteArticles(UserDTO userDTO);
 }

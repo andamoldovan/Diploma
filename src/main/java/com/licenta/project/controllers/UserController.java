@@ -1,5 +1,6 @@
 package com.licenta.project.controllers;
 
+import com.licenta.project.business.dto.ArticleDTO;
 import com.licenta.project.business.dto.UserDTO;
 import com.licenta.project.business.implementation.UserServiceImpl;
 import com.licenta.project.entities.User;
@@ -53,9 +54,8 @@ public class UserController {
 
     @RequestMapping(value= "/update/readArticles", method = RequestMethod.POST, headers= "Accept=application/json")
     @ResponseBody
-    public UserDTO updateReadArticles(@RequestParam(value = "number") int number,
-                                      @RequestBody UserDTO userDTO){
-        return userService.updateReadArticles(userDTO, number);
+    public UserDTO updateReadArticles(@RequestBody UserDTO userDTO){
+        return userService.updateReadArticles(userDTO);
     }
 
     @RequestMapping(value = "/update/favoriteArticle", method = RequestMethod.POST, headers = "Accept=application/json")
@@ -63,4 +63,5 @@ public class UserController {
     public UserDTO updateFavoriteArticles(@RequestBody UserDTO userDTO){
         return userService.updateFavoriteArticles(userDTO);
     }
+
 }

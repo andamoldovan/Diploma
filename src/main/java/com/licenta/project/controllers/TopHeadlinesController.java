@@ -84,10 +84,4 @@ public class TopHeadlinesController {
         return null;
     }
 
-    @RequestMapping(value = "/favorites/getArticle", method = RequestMethod.POST, headers = "Accept=application/json")
-    @ResponseBody
-    public ArticleDTO getArticle(@RequestBody ArticleDTO articleDTO){
-        articleService.setCollection("articles");
-        return articleService.getArticleById(articleDTO.getId());
-    }
 }

@@ -51,7 +51,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ArticleDTO getArticleById(String id) {
         Optional<Article> art = articleRepository.findById(id);
-        if(art.get() == null) return null;
-        return articleTransformation.transform(art.get());
+        if(art.isPresent()) return articleTransformation.transform(art.get());
+        return null;
     }
 }
