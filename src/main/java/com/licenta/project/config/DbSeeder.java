@@ -59,8 +59,8 @@ public class DbSeeder implements CommandLineRunner {
 //        articleRepository.save(a);
 //        System.out.println(a);
 
-        Document doc = Jsoup.connect("https://www.nbcnews.com/news/us-news/guide-anti-abortion-laws-state-n1012566").get();
+        //Document doc = Jsoup.connect("https://www.nbcnews.com/news/us-news/guide-anti-abortion-laws-state-n1012566").get();
         //System.out.println(doc.getElementsByTag("body").text());
-        System.out.println(doc.text());
+       // System.out.println(doc.text());
     }
 }
