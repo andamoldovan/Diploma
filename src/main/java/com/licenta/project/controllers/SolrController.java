@@ -2,11 +2,13 @@ package com.licenta.project.controllers;
 
 import com.licenta.project.business.SolrArticleService;
 import com.licenta.project.business.dto.solr.SolrArticleDTO;
+import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
 @RestController()
 @RequestMapping("/solr")
 public class SolrController {
+    private static final Logger logger = Logger.getLogger(SolrController.class);
 
     private final SolrArticleService solrArticleService;
 
@@ -22,13 +24,15 @@ public class SolrController {
     @RequestMapping(value = "", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public Iterable<SolrArticleDTO> getArticles(){
+        logger.info("Get all articles with solr");
         return solrArticleService.getAllArticles();
     }
 
     @RequestMapping(value = "/fullTextSearch", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public Iterable<SolrArticleDTO> getArticlesByQuery(@RequestParam(value = "text") String text){
-       return  solrArticleService.fullSearch(text);
+        logger.info("Get full text search for articles with solr");
+        return  solrArticleService.fullSearch(text);
     }
 
 }

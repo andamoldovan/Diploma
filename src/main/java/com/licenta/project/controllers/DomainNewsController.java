@@ -3,6 +3,7 @@ package com.licenta.project.controllers;
 import com.licenta.project.business.dto.ArticleDTO;
 import com.licenta.project.business.dto.UserDTO;
 import com.licenta.project.business.implementation.ArticleServiceImpl;
+import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
@@ -14,6 +15,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/domain-news")
 public class DomainNewsController {
+
+    private static final Logger logger = Logger.getLogger(DomainNewsController.class);
 
     private final ArticleServiceImpl articleService;
 
@@ -27,10 +30,12 @@ public class DomainNewsController {
                                      @RequestParam(value = "domain") String domain,
                                      @RequestParam(value = "chunkSize", required = false) Integer chunkSize,
                                      @RequestParam(value = "chunkNumber", required = false) Integer chunkNumber){
+        logger.info("Get chunked domain articles for user - " + userDTO.getId() + " - and domain - " + domain);
         String filepath = "D:/Users/andam/Documents/MEGA/_Diploma/server-logs/user-article-files/" + domain + "/" + domain +"_" + userDTO.getId();
 
         File file = new File(filepath);
         if(chunkNumber == 0) {
+            logger.info("User file -" + userDTO.getId() + " - deleted");
             file.delete();
             chunkNumber = 1;
         }
@@ -79,12 +84,9 @@ public class DomainNewsController {
 //                System.out.println(articles.get(i));
             }
 
-//            System.out.println("TEST");
-//            System.out.println(domain);
-//            System.out.println(filepath);
-//            System.out.println(result.get(0));
             return result;
         }catch(Exception e){
+            logger.error("Error getting chunk for -" + userDTO.getId());
             e.printStackTrace();
         }
 

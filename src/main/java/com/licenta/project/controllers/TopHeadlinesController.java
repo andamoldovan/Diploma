@@ -4,6 +4,7 @@ import com.licenta.project.business.dto.ArticleDTO;
 import com.licenta.project.business.dto.UserDTO;
 import com.licenta.project.business.implementation.ArticleServiceImpl;
 import com.licenta.project.entities.Article;
+import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
@@ -17,6 +18,8 @@ import java.util.List;
 @RequestMapping("/top-headlines")
 public class TopHeadlinesController {
 
+    private static final Logger logger = Logger.getLogger(TopHeadlinesController.class);
+
     private final ArticleServiceImpl articleService;
 
     public TopHeadlinesController(ArticleServiceImpl articleService) {
@@ -28,9 +31,11 @@ public class TopHeadlinesController {
     public List<ArticleDTO> getChunk(@RequestBody UserDTO userDTO,
                             @RequestParam(value = "chunkSize", required = false) Integer chunkSize,
                             @RequestParam(value = "chunkNumber", required = false) Integer chunkNumber){
+        logger.info("Get chunked top-headlines articles for user - " + userDTO.getId());
         String filepath = "D:/Users/andam/Documents/MEGA/_Diploma/server-logs/user-article-files/current_article_list_" + userDTO.getId();
         File file = new File(filepath);
         if(chunkNumber == 0) {
+            logger.info("User file -" + userDTO.getId() + " - deleted");
             file.delete();
             chunkNumber = 1;
         }
@@ -79,6 +84,7 @@ public class TopHeadlinesController {
             }
             return result;
         }catch(Exception e){
+            logger.error("Error getting chunk for -" + userDTO.getId());
             e.printStackTrace();
         }
         return null;

@@ -2,6 +2,7 @@ package com.licenta.project.controllers;
 
 import com.licenta.project.business.ArticleService;
 import com.licenta.project.business.dto.ArticleDTO;
+import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/search")
 public class SearchController {
+
+    private static final Logger logger = Logger.getLogger(SearchController.class);
 
     private final ArticleService articleService;
 
@@ -20,6 +23,7 @@ public class SearchController {
     @RequestMapping(value = "/basic-search", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public List<ArticleDTO> basicSearch(@RequestParam("domain") String domain, @RequestParam("field") String field){
+        logger.info("Basic search api used on domain - " + domain);
         articleService.setCollection(domain);
         return articleService.getArticlesByTitle(field);
     }
