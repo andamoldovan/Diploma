@@ -4,8 +4,7 @@ import com.licenta.project.business.UserService;
 import com.licenta.project.business.dto.UserDTO;
 import com.licenta.project.business.object_transformations.UserTransformation;
 import com.licenta.project.entities.User;
-import com.licenta.project.repositories.UserRepository;
-import org.bson.types.ObjectId;
+import com.licenta.project.repositories.mongo.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -13,7 +12,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {

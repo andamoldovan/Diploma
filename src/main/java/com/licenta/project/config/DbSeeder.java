@@ -1,22 +1,13 @@
 package com.licenta.project.config;
 
-import com.licenta.project.business.dto.ArticleDTO;
 import com.licenta.project.entities.Article;
-import com.licenta.project.entities.User;
-import com.licenta.project.repositories.ArticleRepository;
-import com.licenta.project.repositories.UserRepository;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import com.licenta.project.repositories.mongo.ArticleRepository;
+import com.licenta.project.repositories.mongo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.mongodb.core.query.BasicQuery;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

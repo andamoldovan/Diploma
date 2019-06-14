@@ -4,7 +4,7 @@ import com.licenta.project.business.ArticleService;
 import com.licenta.project.business.dto.ArticleDTO;
 import com.licenta.project.business.object_transformations.ArticleTransformation;
 import com.licenta.project.entities.Article;
-import com.licenta.project.repositories.ArticleRepository;
+import com.licenta.project.repositories.mongo.ArticleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

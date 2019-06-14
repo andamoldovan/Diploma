@@ -1,4 +1,4 @@
-package com.licenta.project.repositories;
+package com.licenta.project.repositories.mongo;
 
 public interface ArticleRepositoryCustom {
 

@@ -3,7 +3,9 @@ package com.licenta.project.scheduler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.licenta.project.entities.Article;
 import com.licenta.project.entities.ResponseArticles;
-import com.licenta.project.repositories.ArticleRepository;
+import com.licenta.project.entities.solr.SolrArticle;
+import com.licenta.project.repositories.mongo.ArticleRepository;
+import com.licenta.project.repositories.solr.SolrArticleRepository;
 import com.licenta.project.scheduler.tasks.FileCleanup;
 import com.licenta.project.scheduler.tasks.TopHeadlines;
 import org.apache.log4j.Logger;
@@ -15,7 +17,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +27,11 @@ public class Scheduler{
     private static final Logger logger = Logger.getLogger(Scheduler.class);
 
     private final ArticleRepository articleRepository;
+    private final SolrArticleRepository solrArticleRepository;
 
-    public Scheduler(final ArticleRepository articleRepository) {
+    public Scheduler(final ArticleRepository articleRepository, SolrArticleRepository solrArticleRepository) {
         this.articleRepository = articleRepository;
+        this.solrArticleRepository = solrArticleRepository;
     }
 
     //@Scheduled(fixedRate = 1000*60)
@@ -48,6 +51,8 @@ public class Scheduler{
             logger.debug("Top-headlined from US saved in the database. Number of articles saved: " + filteredList.size());
             for(Article a : filteredList){
                 articleRepository.save(getOnlineContent(a));
+                SolrArticle solrArticle = transformToSolr(a);
+                solrArticleRepository.save(solrArticle);
             }
 
         } catch (IOException e) {
@@ -56,27 +61,27 @@ public class Scheduler{
         }
     }
 
-   // @Scheduled(fixedRate = 1700 * 60)
+    //@Scheduled(fixedRate = 1700 * 60)
     public void populateBusinessTable(){
         populateTableByDomain("business");
     }
 
-   // @Scheduled(fixedRate = 2300 * 60)
+    //@Scheduled(fixedRate = 2300 * 60)
     public void populateEntertainmentTable(){
         populateTableByDomain("entertainment");
     }
 
-    //@Scheduled(fixedRate = 3500 * 60)
+   // @Scheduled(fixedRate = 3500 * 60)
     public void populateHealthTable(){
         populateTableByDomain("health");
     }
 
-   // @Scheduled(fixedRate = 4800 * 60)
+    //@Scheduled(fixedRate = 4800 * 60)
     public void populateGeneralTable(){
         populateTableByDomain("general");
     }
 
-   // @Scheduled(fixedRate = 5900 * 60)
+    //@Scheduled(fixedRate = 5900 * 60)
     public void populateScienceTable(){
         populateTableByDomain("science");
     }
@@ -86,12 +91,12 @@ public class Scheduler{
         populateTableByDomain("sports");
     }
 
-   // @Scheduled(fixedRate = 1700 * 60)
+    //@Scheduled(fixedRate = 1700 * 60)
     public void populateTechnologyTable(){
         populateTableByDomain("technology");
     }
 
-    @Scheduled(fixedRate = 1000*60*60)
+    //@Scheduled(fixedRate = 1000*60*60)
     public void cleanUpFileUserFiles(){
         FileCleanup fileCleanup = new FileCleanup();
         String mainFolderPath = "D:/Users/andam/Documents/MEGA/_Diploma/server-logs/user-article-files";
@@ -146,5 +151,11 @@ public class Scheduler{
         return article;
     }
 
+
+    private SolrArticle transformToSolr(Article article){
+        SolrArticle solrArticle = new SolrArticle(article.getId(), article.getSource().getName(), article.getTitle(),
+                article.getAuthor(), article.getDescription(), article.getContent());
+        return solrArticle;
+    }
 
 }

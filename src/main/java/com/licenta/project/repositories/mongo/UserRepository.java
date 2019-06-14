@@ -1,4 +1,4 @@
-package com.licenta.project.repositories;
+package com.licenta.project.repositories.mongo;
 
 import com.licenta.project.entities.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
