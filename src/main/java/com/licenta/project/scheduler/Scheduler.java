@@ -52,7 +52,7 @@ public class Scheduler{
             logger.debug("Top-headlined from US saved in the database. Number of articles saved: " + filteredList.size());
             for(Article a : filteredList){
                 articleRepository.save(getOnlineContent(a));
-                SolrArticle solrArticle = transformToSolr(a);
+                SolrArticle solrArticle = transformToSolr(a, "headlines");
                 solrArticleRepository.save(solrArticle);
             }
 
@@ -117,7 +117,7 @@ public class Scheduler{
             logger.debug(domain + " articles from US saved in the database. Number of articles saved: " + filteredList.size());
             for(Article a : filteredList){
                 articleRepository.save(getOnlineContent(a));
-                SolrArticle solrArticle = transformToSolr(a);
+                SolrArticle solrArticle = transformToSolr(a, domain);
                 solrArticleRepository.save(solrArticle);
             }
 
@@ -155,9 +155,9 @@ public class Scheduler{
     }
 
 
-    private SolrArticle transformToSolr(Article article){
+    private SolrArticle transformToSolr(Article article, String domain){
         SolrArticle solrArticle = new SolrArticle(article.getId(), article.getSource().getName(), article.getTitle(),
-                article.getAuthor(), article.getDescription(), article.getContent());
+                article.getAuthor(), article.getDescription(), article.getContent(), domain);
         return solrArticle;
     }
 

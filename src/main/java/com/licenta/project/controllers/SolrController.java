@@ -5,6 +5,8 @@ import com.licenta.project.business.dto.solr.SolrArticleDTO;
 import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
+
 @RestController()
 @RequestMapping("/solr")
 public class SolrController {

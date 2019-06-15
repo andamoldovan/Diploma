@@ -33,25 +33,31 @@ public class SolrArticle {
     @Field
     private String content;
 
+    @Indexed(name = "domain", type = "string")
+    @Field
+    private String domain;
+
     public SolrArticle() {
     }
 
 
-    public SolrArticle(String source, String title, String author, String description, String content) {
+    public SolrArticle(String source, String title, String author, String description, String content, String domain) {
         this.source = source;
         this.title = title;
         this.author = author;
         this.description = description;
         this.content = content;
+        this.domain = domain;
     }
 
-    public SolrArticle(String id, String source, String title, String author, String description, String content) {
+    public SolrArticle(String id, String source, String title, String author, String description, String content, String domain) {
         this.id = id;
         this.source = source;
         this.title = title;
         this.author = author;
         this.description = description;
         this.content = content;
+        this.domain = domain;
     }
 
     public String getId() {
@@ -102,6 +108,14 @@ public class SolrArticle {
         this.content = content;
     }
 
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
     @Override
     public String toString() {
         return "SolrArticle{" +
@@ -111,6 +125,7 @@ public class SolrArticle {
                 ", author='" + author + '\'' +
                 ", description='" + description + '\'' +
                 ", content='" + content + '\'' +
+                ", domain='" + domain + '\'' +
                 '}';
     }
 }

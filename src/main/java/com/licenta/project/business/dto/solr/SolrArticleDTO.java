@@ -8,25 +8,28 @@ public class SolrArticleDTO {
     private String author;
     private String description;
     private String content;
+    String domain;
 
     public SolrArticleDTO() {
     }
 
-    public SolrArticleDTO(String source, String title, String author, String description, String content) {
+    public SolrArticleDTO(String source, String title, String author, String description, String content, String domain) {
         this.source = source;
         this.title = title;
         this.author = author;
         this.description = description;
         this.content = content;
+        this.domain = domain;
     }
 
-    public SolrArticleDTO(String id, String source, String title, String author, String description, String content) {
+    public SolrArticleDTO(String id, String source, String title, String author, String description, String content, String domain) {
         this.id = id;
         this.source = source;
         this.title = title;
         this.author = author;
         this.description = description;
         this.content = content;
+        this.domain = domain;
     }
 
     public String getId() {
@@ -77,6 +80,14 @@ public class SolrArticleDTO {
         this.content = content;
     }
 
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
     @Override
     public String toString() {
         return "SolrArticleDTO{" +
@@ -86,6 +97,7 @@ public class SolrArticleDTO {
                 ", author='" + author + '\'' +
                 ", description='" + description + '\'' +
                 ", content='" + content + '\'' +
+                ", domain='" + domain + '\'' +
                 '}';
     }
 }
