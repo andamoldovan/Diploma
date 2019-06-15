@@ -11,5 +11,19 @@ public interface SolrArticleService {
 
     Iterable<SolrArticleDTO> fullSearch(String text);
 
+    Iterable<SolrArticleDTO> getByTitle(String title);
+
+    Iterable<SolrArticleDTO> getByAuthor(String author);
+
+    Iterable<SolrArticleDTO> getBySource(String source);
+
+    Iterable<SolrArticleDTO> getByDomain(String domain);
+
+    Iterable<SolrArticleDTO> getByContent(String content);
+
+    Iterable<SolrArticleDTO> getByDescription(String description);
+
+    Iterable<SolrArticleDTO> getByAttribute(String text);
+
     void deleteAll();
 }

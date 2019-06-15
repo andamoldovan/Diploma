@@ -35,7 +35,7 @@ public class Scheduler{
         this.solrArticleRepository = solrArticleRepository;
     }
 
-    @Scheduled(fixedRate = 1000*60)
+    //@Scheduled(fixedRate = 1000*60)
     public void populateArticleTable(){
 
         TopHeadlines top = new TopHeadlines();
@@ -62,37 +62,37 @@ public class Scheduler{
         }
     }
 
-    @Scheduled(fixedRate = 1700 * 60)
+    //@Scheduled(fixedRate = 1700 * 60)
     public void populateBusinessTable(){
         populateTableByDomain("business");
     }
 
-    @Scheduled(fixedRate = 2300 * 60)
+    //@Scheduled(fixedRate = 2300 * 60)
     public void populateEntertainmentTable(){
         populateTableByDomain("entertainment");
     }
 
-    @Scheduled(fixedRate = 3500 * 60)
+   //@Scheduled(fixedRate = 3500 * 60)
     public void populateHealthTable(){
         populateTableByDomain("health");
     }
 
-    @Scheduled(fixedRate = 4800 * 60)
+    //Scheduled(fixedRate = 4800 * 60)
     public void populateGeneralTable(){
         populateTableByDomain("general");
     }
 
-    @Scheduled(fixedRate = 5900 * 60)
+    //@Scheduled(fixedRate = 5900 * 60)
     public void populateScienceTable(){
         populateTableByDomain("science");
     }
 
-    @Scheduled(fixedRate = 5300 * 60)
+    //@Scheduled(fixedRate = 5300 * 60)
     public void populateSportsTable(){
         populateTableByDomain("sports");
     }
 
-    @Scheduled(fixedRate = 1700 * 60)
+    //@Scheduled(fixedRate = 1700 * 60)
     public void populateTechnologyTable(){
         populateTableByDomain("technology");
     }
