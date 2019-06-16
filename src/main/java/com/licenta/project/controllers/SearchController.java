@@ -24,7 +24,11 @@ public class SearchController {
     @ResponseBody
     public List<ArticleDTO> basicSearch(@RequestParam("domain") String domain, @RequestParam("field") String field){
         logger.info("Basic search api used on domain - " + domain);
-        articleService.setCollection(domain);
+        if ((!domain.equals("headlines"))) {
+            articleService.setCollection(domain);
+        } else {
+            articleService.setCollection("articles");
+        }
         return articleService.getArticlesByTitle(field);
     }
 }

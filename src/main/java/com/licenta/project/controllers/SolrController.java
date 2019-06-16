@@ -1,18 +1,24 @@
 package com.licenta.project.controllers;
 
 import com.licenta.project.business.SolrArticleService;
+import com.licenta.project.business.dto.UserDTO;
 import com.licenta.project.business.dto.solr.SolrArticleDTO;
 import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.HashMap;
 
+@CrossOrigin(maxAge = 3600)
 @RestController()
 @RequestMapping("/solr")
 public class SolrController {
     private static final Logger logger = Logger.getLogger(SolrController.class);
 
     private final SolrArticleService solrArticleService;
+
+    private static HashMap<String, Iterable<SolrArticleDTO>> allSearchResults = new HashMap<>();
 
     public SolrController(SolrArticleService solrArticleService) {
         this.solrArticleService = solrArticleService;
@@ -23,11 +29,33 @@ public class SolrController {
 //        solrArticleService.deleteAll();
 //    }
 
-    @RequestMapping(value = "", method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(value = "", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
-    public Iterable<SolrArticleDTO> getArticles(){
+    public Iterable<SolrArticleDTO> getArticles(@RequestBody UserDTO userDTO ,
+                                                @RequestParam(value = "chunk") Integer chunk,
+                                                @RequestParam(value = "chunkSize", required = false) Integer chunkSize){
         logger.info("Get all articles with solr");
-        return solrArticleService.getAllArticles();
+        if(chunk == 1) {
+            Iterable<SolrArticleDTO> articles = solrArticleService.getAllArticles();
+            if(allSearchResults.keySet().isEmpty()) allSearchResults.put(userDTO.getId(), articles);
+            else{
+                for(String user: allSearchResults.keySet()){
+                    if(user.equals(userDTO.getId())) {
+                        allSearchResults.remove(user);
+                        allSearchResults.put(userDTO.getId(), articles);
+                    }
+                    else allSearchResults.put(userDTO.getId(), articles);
+                }
+            }
+        }
+
+        if(chunkSize == null) chunkSize = 20;
+        Iterable<SolrArticleDTO> userArticles = (ArrayList<SolrArticleDTO>)allSearchResults.get(userDTO.getId());
+        Iterable<SolrArticleDTO> result = new ArrayList<>();
+        for(int i = (chunk - 1)*chunkSize; i< (chunk * chunkSize); i++){
+            ((ArrayList<SolrArticleDTO>) result).add(((ArrayList<SolrArticleDTO>) userArticles).get(i));
+        }
+        return result;
     }
 
     @RequestMapping(value = "/fullTextSearch", method = RequestMethod.GET, headers = "Accept=application/json")

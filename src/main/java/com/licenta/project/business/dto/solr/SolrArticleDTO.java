@@ -8,7 +8,8 @@ public class SolrArticleDTO {
     private String author;
     private String description;
     private String content;
-    String domain;
+    private String domain;
+    private String url;
 
     public SolrArticleDTO() {
     }
@@ -88,6 +89,14 @@ public class SolrArticleDTO {
         this.domain = domain;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     @Override
     public String toString() {
         return "SolrArticleDTO{" +
@@ -98,6 +107,7 @@ public class SolrArticleDTO {
                 ", description='" + description + '\'' +
                 ", content='" + content + '\'' +
                 ", domain='" + domain + '\'' +
+                ", url='" + url + '\'' +
                 '}';
     }
 }
