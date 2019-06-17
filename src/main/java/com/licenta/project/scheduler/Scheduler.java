@@ -1,11 +1,14 @@
 package com.licenta.project.scheduler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.licenta.project.business.ArticleService;
+import com.licenta.project.business.implementation.UserServiceImpl;
 import com.licenta.project.entities.Article;
 import com.licenta.project.entities.ResponseArticles;
 import com.licenta.project.entities.solr.SolrArticle;
 import com.licenta.project.repositories.mongo.ArticleRepository;
 import com.licenta.project.repositories.solr.SolrArticleRepository;
+import com.licenta.project.scheduler.tasks.EmailScheduling;
 import com.licenta.project.scheduler.tasks.FileCleanup;
 import com.licenta.project.scheduler.tasks.TopHeadlines;
 import org.apache.log4j.Logger;
@@ -17,8 +20,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -29,10 +35,14 @@ public class Scheduler{
 
     private final ArticleRepository articleRepository;
     private final SolrArticleRepository solrArticleRepository;
+    private final UserServiceImpl userService;
+    private final ArticleService articleService;
 
-    public Scheduler(final ArticleRepository articleRepository, SolrArticleRepository solrArticleRepository) {
+    public Scheduler(final ArticleRepository articleRepository, SolrArticleRepository solrArticleRepository, UserServiceImpl userService, ArticleService articleService) {
         this.articleRepository = articleRepository;
         this.solrArticleRepository = solrArticleRepository;
+        this.userService = userService;
+        this.articleService = articleService;
     }
 
     //@Scheduled(fixedRate = 1000*60)
@@ -102,6 +112,24 @@ public class Scheduler{
         FileCleanup fileCleanup = new FileCleanup();
         String mainFolderPath = "D:/Users/andam/Documents/MEGA/_Diploma/server-logs/user-article-files";
         fileCleanup.cleanUp(mainFolderPath);
+    }
+
+
+    @Scheduled(fixedRate = 1000*60*30)
+    public void sendEmail(){
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        String formattedTime = timeFormat.format(date);
+
+        String [] array = formattedTime.split(":");
+        String time = array[0] + ":";
+        if(Integer.valueOf(array[1]) < 30) time += "00";
+        else time += "30";
+
+
+        EmailScheduling emailScheduling = new EmailScheduling(userService, articleService);
+        emailScheduling.scheduleEmail(time);
     }
 
     public void populateTableByDomain(String domain){

@@ -78,6 +78,17 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public List<UserDTO> getUsersWithEmailSchedules(String time) {
+        List<User> list = userRepository.findUsersByEmailSchedule(time);
+        List<UserDTO> result = new ArrayList<>();
+
+        for(User user : list){
+            result.add(userTransformation.transform(user));
+        }
+        return result;
+    }
+
     //encoding done with SHA-256
     private String encodePassword(String password) {
         try{

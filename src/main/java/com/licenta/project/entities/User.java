@@ -1,6 +1,8 @@
 package com.licenta.project.entities;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.IndexDirection;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -28,12 +30,17 @@ public class User {
     private int readArticles;
     @Field(value = "favorite_articles")
     private ArrayList<String> favoriteArticles;
+    @Field(value = "email_schedule")
+    @Indexed(name = "email_schedule-index", direction = IndexDirection.ASCENDING)
+    private String emailSchedule;
 
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String userName, String email, String password, ArrayList<String> preferences, int readArticles, ArrayList<String> favoriteArticles) {
+    public User(String firstName, String lastName, String userName, String email, String password,
+                ArrayList<String> preferences, int readArticles, ArrayList<String> favoriteArticles,
+                String emailSchedule) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
@@ -42,6 +49,7 @@ public class User {
         this.preferences = preferences;
         this.readArticles = readArticles;
         this.favoriteArticles = favoriteArticles;
+        this.emailSchedule = emailSchedule;
     }
 
     public String getId() {
@@ -116,6 +124,14 @@ public class User {
         this.favoriteArticles = favoriteArticles;
     }
 
+    public String getEmailSchedule() {
+        return emailSchedule;
+    }
+
+    public void setEmailSchedule(String emailSchedule) {
+        this.emailSchedule = emailSchedule;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -128,6 +144,7 @@ public class User {
                 ", preferences=" + preferences +
                 ", readArticles=" + readArticles +
                 ", favoriteArticles=" + favoriteArticles +
+                ", emailSchedule='" + emailSchedule + '\'' +
                 '}';
     }
 }

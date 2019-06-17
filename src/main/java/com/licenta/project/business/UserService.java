@@ -17,4 +17,6 @@ public interface UserService {
     UserDTO updateReadArticles(UserDTO userDTO);
 
     UserDTO updateFavoriteArticles(UserDTO userDTO);
+
+    List<UserDTO> getUsersWithEmailSchedules(String time);
 }

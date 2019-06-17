@@ -22,13 +22,6 @@ public class FileCleanup {
                 long lastModified = fileEntry.lastModified();
                 long currentTime = Instant.now().toEpochMilli();
 
-//                System.out.println("\n\n\n");
-//                System.out.println("Last modified: " + lastModified);
-//                System.out.println("Now: " + currentTime);
-//                System.out.println("Difference: " + (currentTime - lastModified));
-//                System.out.println("Difference minutes: " + TimeUnit.MILLISECONDS.toMinutes(currentTime - lastModified));
-//                System.out.println("\n\n\n");
-
                 if(TimeUnit.MILLISECONDS.toHours(currentTime - lastModified) >= 6){
                     fileEntry.delete();
                     logger.info("File with name: " + fileEntry + " deleted");

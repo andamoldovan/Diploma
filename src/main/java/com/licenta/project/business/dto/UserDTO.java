@@ -14,12 +14,15 @@ public class UserDTO implements Serializable {
     private ArrayList<String> preferences;
     private int readArticles;
     private ArrayList<String> favoriteArticles;
+    private String emailSchedule;
 
     public UserDTO() {
     }
 
 
-    public UserDTO(String firstName, String lastName, String userName, String email, String password, ArrayList<String> preferences, int readArticles, ArrayList<String> favoriteArticles) {
+    public UserDTO(String firstName, String lastName, String userName, String email, String password,
+                   ArrayList<String> preferences, int readArticles, ArrayList<String> favoriteArticles,
+                   String emailSchedule) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
@@ -28,9 +31,12 @@ public class UserDTO implements Serializable {
         this.preferences = preferences;
         this.readArticles = readArticles;
         this.favoriteArticles = favoriteArticles;
+        this.emailSchedule = emailSchedule;
     }
 
-    public UserDTO(String id, String firstName, String lastName, String userName, String email, String password, ArrayList<String> preferences, int readArticles, ArrayList<String> favoriteArticles) {
+    public UserDTO(String id, String firstName, String lastName, String userName, String email, String password,
+                   ArrayList<String> preferences, int readArticles, ArrayList<String> favoriteArticles,
+                   String emailSchedule) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -40,6 +46,7 @@ public class UserDTO implements Serializable {
         this.preferences = preferences;
         this.readArticles = readArticles;
         this.favoriteArticles = favoriteArticles;
+        this.emailSchedule = emailSchedule;
     }
 
     public String getId() {
@@ -114,6 +121,14 @@ public class UserDTO implements Serializable {
         this.favoriteArticles = favoriteArticles;
     }
 
+    public String getEmailSchedule() {
+        return emailSchedule;
+    }
+
+    public void setEmailSchedule(String emailSchedule) {
+        this.emailSchedule = emailSchedule;
+    }
+
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -126,6 +141,7 @@ public class UserDTO implements Serializable {
                 ", preferences=" + preferences +
                 ", readArticles=" + readArticles +
                 ", favoriteArticles=" + favoriteArticles +
+                ", emailSchedule='" + emailSchedule + '\'' +
                 '}';
     }
 }
