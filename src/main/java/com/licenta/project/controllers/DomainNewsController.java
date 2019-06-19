@@ -7,9 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
@@ -67,7 +65,7 @@ public class DomainNewsController {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileIn);
 
             int fileSize = objectInputStream.readInt();
-            System.out.println("\n\n\n SIZE OF THE INPUT FILE " + fileSize);
+//            System.out.println("\n\n\n SIZE OF THE INPUT FILE " + fileSize);
             List<ArticleDTO> articles = new ArrayList<>();
             while (fileSize > 0){
                 ArticleDTO art = (ArticleDTO) objectInputStream.readObject();
@@ -81,7 +79,7 @@ public class DomainNewsController {
             List<ArticleDTO> result = new ArrayList<>();
             for(int i = (chunkNumber - 1)*chunkSize; i < (chunkNumber * chunkSize) - 1; i++){
                 result.add(articles.get(i));
-//                System.out.println(articles.get(i));
+
             }
 
             return result;
@@ -91,6 +89,36 @@ public class DomainNewsController {
         }
 
         return null;
+
+    }
+
+    @RequestMapping(value = "/getStartDashboard", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public List<ArticleDTO> getDashboard(){
+        logger.info("Get random articles for start dashboard");
+        List<String> collections = new ArrayList<>(Arrays.asList("articles", "business", "entertainment", "general", "health", "science", "sports", "technology"));
+
+        List<ArticleDTO> results = new ArrayList<>();
+        for(String collection: collections){
+            if(!collection.equals("articles")){
+                articleService.setCollection(collection);
+                List<ArticleDTO> list = articleService.getAllArticles();
+
+                Random rand = new Random();
+                ArticleDTO first = list.get(rand.nextInt(list.size()));
+                ArticleDTO second = list.get(rand.nextInt(list.size()));
+
+                results.add(first);
+                results.add(second);
+
+                if(collection.equals("entertainment") || collection.equals("technology")){
+                    ArticleDTO third = list.get(rand.nextInt(list.size()));
+                    results.add(third);
+                }
+            }
+        }
+//        System.out.println(results.size());
+        return results;
 
     }
 }
