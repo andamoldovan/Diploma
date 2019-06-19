@@ -72,4 +72,11 @@ public class UserController {
         return userService.updateFavoriteArticles(userDTO);
     }
 
+    @RequestMapping(value = "/update/emailScheduler", method = RequestMethod.POST, headers = "Accept=application/json")
+    @ResponseBody
+    public UserDTO updateEmailSchedule(@RequestBody UserDTO userDTO){
+        logger.info("Updated email schedule for user -" + userDTO.getId());
+        return userService.updateEmailScheduler(userDTO);
+    }
+
 }

@@ -38,7 +38,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO saveUser(UserDTO userDTO) {
         User user = encodeUserPassword(userTransformation.transform(userDTO));
-        return userTransformation.transform(userRepository.save(user));
+        User existingUser = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
+        if(existingUser == null){
+            return userTransformation.transform(userRepository.save(user));
+        }
+        return new UserDTO();
     }
 
     @Override
@@ -72,6 +76,17 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByEmailAndPassword(userDTO.getEmail(), userDTO.getPassword());
         if(user != null){
             user.setFavoriteArticles(userDTO.getFavoriteArticles());
+
+            return userTransformation.transform(userRepository.save(user));
+        }
+        return null;
+    }
+
+    @Override
+    public UserDTO updateEmailScheduler(UserDTO userDTO) {
+        User user = userRepository.findByEmailAndPassword(userDTO.getEmail(), userDTO.getPassword());
+        if(user != null){
+            user.setEmailSchedule(userDTO.getEmailSchedule());
 
             return userTransformation.transform(userRepository.save(user));
         }
