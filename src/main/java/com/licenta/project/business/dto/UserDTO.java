@@ -2,6 +2,7 @@ package com.licenta.project.business.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class UserDTO implements Serializable {
 
@@ -15,6 +16,8 @@ public class UserDTO implements Serializable {
     private int readArticles;
     private ArrayList<String> favoriteArticles;
     private String emailSchedule;
+    private HashMap<String, Integer> articleRatings;
+
 
     public UserDTO() {
     }
@@ -22,7 +25,7 @@ public class UserDTO implements Serializable {
 
     public UserDTO(String firstName, String lastName, String userName, String email, String password,
                    ArrayList<String> preferences, int readArticles, ArrayList<String> favoriteArticles,
-                   String emailSchedule) {
+                   String emailSchedule, HashMap<String, Integer> articleRatings) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
@@ -32,11 +35,12 @@ public class UserDTO implements Serializable {
         this.readArticles = readArticles;
         this.favoriteArticles = favoriteArticles;
         this.emailSchedule = emailSchedule;
+        this.articleRatings = articleRatings;
     }
 
     public UserDTO(String id, String firstName, String lastName, String userName, String email, String password,
                    ArrayList<String> preferences, int readArticles, ArrayList<String> favoriteArticles,
-                   String emailSchedule) {
+                   String emailSchedule, HashMap<String, Integer> articleRatings) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -47,6 +51,7 @@ public class UserDTO implements Serializable {
         this.readArticles = readArticles;
         this.favoriteArticles = favoriteArticles;
         this.emailSchedule = emailSchedule;
+        this.articleRatings = articleRatings;
     }
 
     public String getId() {
@@ -129,6 +134,14 @@ public class UserDTO implements Serializable {
         this.emailSchedule = emailSchedule;
     }
 
+    public HashMap<String, Integer> getArticleRatings() {
+        return articleRatings;
+    }
+
+    public void setArticleRatings(HashMap<String, Integer> articleRatings) {
+        this.articleRatings = articleRatings;
+    }
+
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -142,6 +155,7 @@ public class UserDTO implements Serializable {
                 ", readArticles=" + readArticles +
                 ", favoriteArticles=" + favoriteArticles +
                 ", emailSchedule='" + emailSchedule + '\'' +
+                ", articleRatings=" + articleRatings +
                 '}';
     }
 }

@@ -79,4 +79,18 @@ public class UserController {
         return userService.updateEmailScheduler(userDTO);
     }
 
+    @RequestMapping(value = "/update/articleRatings", method = RequestMethod.POST, headers = "Accept=application/json")
+    @ResponseBody
+    public UserDTO updateArticleRatins(@RequestBody UserDTO userDTO){
+        logger.info("Updated article ratings for user -" + userDTO.getId());
+        return userService.updateRatings(userDTO);
+    }
+
+    @RequestMapping(value = "/recommendations/getRecommendation", method = RequestMethod.POST, headers = "Accept=application/json")
+    @ResponseBody
+    public List<ArticleDTO> getRecommendationForUser(@RequestBody UserDTO userDTO){
+        logger.info("Get recommendation for user -" + userDTO.getId());
+        return userService.getArticlePrediction(userDTO);
+    }
+
 }

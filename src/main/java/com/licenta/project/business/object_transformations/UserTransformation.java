@@ -8,12 +8,12 @@ public class UserTransformation {
     public UserDTO transform(User user){
         return new UserDTO(user.getId(), user.getFirstName(), user.getLastName(),
                 user.getUserName(), user.getEmail(), user.getPassword(), user.getPreferences(),
-                user.getReadArticles(), user.getFavoriteArticles(), user.getEmailSchedule());
+                user.getReadArticles(), user.getFavoriteArticles(), user.getEmailSchedule(), user.getArticleRatings());
     }
 
     public User transform(UserDTO user){
         return new User(user.getFirstName(), user.getLastName(),
                 user.getUserName(), user.getEmail(), user.getPassword(), user.getPreferences(),
-                user.getReadArticles(), user.getFavoriteArticles(), user.getEmailSchedule());
+                user.getReadArticles(), user.getFavoriteArticles(), user.getEmailSchedule(), user.getArticleRatings());
     }
 }

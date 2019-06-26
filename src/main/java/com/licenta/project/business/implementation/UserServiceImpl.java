@@ -1,8 +1,10 @@
 package com.licenta.project.business.implementation;
 
 import com.licenta.project.business.UserService;
+import com.licenta.project.business.dto.ArticleDTO;
 import com.licenta.project.business.dto.UserDTO;
 import com.licenta.project.business.object_transformations.UserTransformation;
+import com.licenta.project.business.recommandation_system.RecommandationService;
 import com.licenta.project.entities.User;
 import com.licenta.project.repositories.mongo.UserRepository;
 import org.springframework.stereotype.Service;
@@ -18,9 +20,11 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private UserTransformation userTransformation;
+    private final RecommandationService recommandationService;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, RecommandationService recommandationService) {
         this.userRepository = userRepository;
+        this.recommandationService = recommandationService;
         this.userTransformation = new UserTransformation();
     }
 
@@ -102,6 +106,27 @@ public class UserServiceImpl implements UserService {
             result.add(userTransformation.transform(user));
         }
         return result;
+    }
+
+    @Override
+    public UserDTO updateRatings(UserDTO userDTO) {
+        User user = userRepository.findByEmailAndPassword(userDTO.getEmail(), userDTO.getPassword());
+        if(user != null){
+            user.setArticleRatings(userDTO.getArticleRatings());
+            return userTransformation.transform(userRepository.save(user));
+        }
+        return null;
+    }
+
+    @Override
+    public List<ArticleDTO> getArticlePrediction(UserDTO userDTO) {
+        List<User> allUsers = userRepository.findAll();
+        List<UserDTO> users = new ArrayList<>();
+        for(User u : allUsers){
+            UserDTO newUserDTO = userTransformation.transform(u);
+            users.add(newUserDTO);
+        }
+        return recommandationService.getRecommandationForUser((ArrayList<UserDTO>) users, userDTO);
     }
 
     //encoding done with SHA-256

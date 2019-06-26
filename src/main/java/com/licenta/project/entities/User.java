@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Document(collection = "users")
 public class User {
@@ -33,6 +34,8 @@ public class User {
     @Field(value = "email_schedule")
     @Indexed(name = "email_schedule-index", direction = IndexDirection.ASCENDING)
     private String emailSchedule;
+    @Field(value = "article_ratings")
+    private HashMap<String, Integer> articleRatings;
 
 
     public User() {
@@ -40,7 +43,7 @@ public class User {
 
     public User(String firstName, String lastName, String userName, String email, String password,
                 ArrayList<String> preferences, int readArticles, ArrayList<String> favoriteArticles,
-                String emailSchedule) {
+                String emailSchedule, HashMap<String, Integer> articleRatings) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
@@ -50,6 +53,7 @@ public class User {
         this.readArticles = readArticles;
         this.favoriteArticles = favoriteArticles;
         this.emailSchedule = emailSchedule;
+        this.articleRatings = articleRatings;
     }
 
     public String getId() {
@@ -132,6 +136,14 @@ public class User {
         this.emailSchedule = emailSchedule;
     }
 
+    public HashMap<String, Integer> getArticleRatings() {
+        return articleRatings;
+    }
+
+    public void setArticleRatings(HashMap<String, Integer> articleRatings) {
+        this.articleRatings = articleRatings;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -145,6 +157,7 @@ public class User {
                 ", readArticles=" + readArticles +
                 ", favoriteArticles=" + favoriteArticles +
                 ", emailSchedule='" + emailSchedule + '\'' +
+                ", articleRatings=" + articleRatings +
                 '}';
     }
 }

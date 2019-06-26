@@ -1,5 +1,6 @@
 package com.licenta.project.business;
 
+import com.licenta.project.business.dto.ArticleDTO;
 import com.licenta.project.business.dto.UserDTO;
 
 import java.util.List;
@@ -21,4 +22,8 @@ public interface UserService {
     UserDTO updateEmailScheduler(UserDTO userDTO);
 
     List<UserDTO> getUsersWithEmailSchedules(String time);
+
+    UserDTO updateRatings(UserDTO userDTO);
+
+    List<ArticleDTO> getArticlePrediction(UserDTO userDTO);
 }
