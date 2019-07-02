@@ -6,6 +6,7 @@ import com.licenta.project.business.dto.UserDTO;
 import com.licenta.project.business.implementation.UserServiceImpl;
 import com.licenta.project.config.EmailServiceImpl;
 
+import javax.mail.MessagingException;
 import java.util.*;
 
 public class EmailScheduling {
@@ -34,11 +35,11 @@ public class EmailScheduling {
                 if((size - 2) > 0) articles.add(allArticles.get(size - 2));
                 if((size - 3) > 0) articles.add(allArticles.get(size - 3));
             }
-            String text = "";
-            for(ArticleDTO art : articles){
-                text += art.getTitle() + "  \n  ";
+            try {
+                emailService.sendMimeMail(articles, user.getEmail());
+            } catch (MessagingException e) {
+                e.printStackTrace();
             }
-            emailService.sendMail(user.getEmail(), "News update", text);
         }
     }
 }
