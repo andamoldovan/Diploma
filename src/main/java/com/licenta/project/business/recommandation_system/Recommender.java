@@ -21,7 +21,6 @@ public class Recommender {
     private double createPrediction(ArrayList<UserDTO> neighborhood, String articleId){
         double sumOfRatings = 0;
         double totoalNumberOfArticles = 0;
-
         for(UserDTO user: neighborhood){
             HashMap<String, Integer> userRatings = user.getArticleRatings();
             if(userRatings.containsKey(articleId)){
@@ -34,9 +33,7 @@ public class Recommender {
 
 
     private ArrayList<UserDTO> createNeighborhood(List<UserDTO> allUsers, UserDTO activeUser){
-
         ArrayList<UserDTO> neighborhood = new ArrayList<>();
-
         for(UserDTO otherUser: allUsers){
             if(!otherUser.getId().equals(activeUser.getId())){
                 double similarity = calculateSimilarity(activeUser, otherUser);
@@ -44,6 +41,7 @@ public class Recommender {
                     neighborhood.add(otherUser);
                 }
             }
+
         }
         return neighborhood;
     }

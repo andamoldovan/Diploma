@@ -1,6 +1,6 @@
 package com.licenta.project.business.implementation;
 
-import com.licenta.project.business.ArticleService;
+import com.licenta.project.business.services.ArticleService;
 import com.licenta.project.business.dto.ArticleDTO;
 import com.licenta.project.business.object_transformations.ArticleTransformation;
 import com.licenta.project.entities.Article;

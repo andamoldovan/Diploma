@@ -1,7 +1,7 @@
 package com.licenta.project.scheduler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.licenta.project.business.ArticleService;
+import com.licenta.project.business.services.ArticleService;
 import com.licenta.project.business.implementation.UserServiceImpl;
 import com.licenta.project.entities.Article;
 import com.licenta.project.entities.ResponseArticles;
@@ -27,6 +27,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static globals.Constants.ARTICLES;
+import static globals.Constants.HEADLINES;
 
 @Component
 public class Scheduler{
@@ -47,25 +49,18 @@ public class Scheduler{
 
     //@Scheduled(fixedRate = 1000*60)
     public void populateArticleTable(){
-
         TopHeadlines top = new TopHeadlines();
-        System.out.println(top.getHeadlinesByCountry("us"));
-        articleRepository.setCollectionName("articles");
+        articleRepository.setCollectionName(ARTICLES);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-
             ResponseArticles art = objectMapper.readValue(top.getHeadlinesByCountry("us"), ResponseArticles.class);
-
-            System.out.println(art.getArticles().size());
             List<Article> filteredList = eliminateDuplicates(art.getArticles());
-
             logger.debug("Top-headlined from US saved in the database. Number of articles saved: " + filteredList.size());
             for(Article a : filteredList){
                 articleRepository.save(getOnlineContent(a));
-                SolrArticle solrArticle = transformToSolr(a, "headlines");
+                SolrArticle solrArticle = transformToSolr(a, HEADLINES);
                 solrArticleRepository.save(solrArticle);
             }
-
         } catch (IOException e) {
             logger.error("Error at saving US top-headlines in the database");
             e.printStackTrace();

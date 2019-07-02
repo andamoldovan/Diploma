@@ -1,6 +1,6 @@
 package com.licenta.project.controllers;
 
-import com.licenta.project.business.ArticleService;
+import com.licenta.project.business.services.ArticleService;
 import com.licenta.project.business.dto.ArticleDTO;
 import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.*;

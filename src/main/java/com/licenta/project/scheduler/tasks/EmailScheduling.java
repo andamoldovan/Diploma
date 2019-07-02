@@ -1,15 +1,11 @@
 package com.licenta.project.scheduler.tasks;
 
-import com.licenta.project.business.ArticleService;
+import com.licenta.project.business.services.ArticleService;
 import com.licenta.project.business.dto.ArticleDTO;
 import com.licenta.project.business.dto.UserDTO;
 import com.licenta.project.business.implementation.UserServiceImpl;
 import com.licenta.project.config.EmailServiceImpl;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class EmailScheduling {

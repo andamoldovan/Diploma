@@ -1,10 +1,9 @@
 package com.licenta.project.business.implementation;
 
-import com.licenta.project.business.SolrArticleService;
+import com.licenta.project.business.services.SolrArticleService;
 import com.licenta.project.business.dto.ArticleDTO;
 import com.licenta.project.business.dto.solr.SolrArticleDTO;
 import com.licenta.project.business.object_transformations.SolrArticleTransformation;
-import com.licenta.project.entities.Article;
 import com.licenta.project.entities.solr.SolrArticle;
 import com.licenta.project.repositories.solr.SolrArticleRepository;
 import org.springframework.data.domain.Page;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SolrArticleServiceImpl implements SolrArticleService {

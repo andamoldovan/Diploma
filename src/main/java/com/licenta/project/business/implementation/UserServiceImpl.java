@@ -1,6 +1,6 @@
 package com.licenta.project.business.implementation;
 
-import com.licenta.project.business.UserService;
+import com.licenta.project.business.services.UserService;
 import com.licenta.project.business.dto.ArticleDTO;
 import com.licenta.project.business.dto.UserDTO;
 import com.licenta.project.business.object_transformations.UserTransformation;

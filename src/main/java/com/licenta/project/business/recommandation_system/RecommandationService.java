@@ -1,7 +1,6 @@
 package com.licenta.project.business.recommandation_system;
 
-import com.licenta.project.business.ArticleService;
-import com.licenta.project.business.UserService;
+import com.licenta.project.business.services.ArticleService;
 import com.licenta.project.business.dto.ArticleDTO;
 import com.licenta.project.business.dto.UserDTO;
 import org.springframework.stereotype.Service;

@@ -6,4 +6,6 @@ public class Constants {
     }
 
     public static String API_KEY = "2e9527aab4fb4767b1e1af6370eebdbd";
+    public static String ARTICLES = "articles";
+    public static String HEADLINES = "headlines";
 }

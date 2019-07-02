@@ -1,12 +1,11 @@
 package com.licenta.project.controllers;
 
-import com.licenta.project.business.SolrArticleService;
+import com.licenta.project.business.services.SolrArticleService;
 import com.licenta.project.business.dto.UserDTO;
 import com.licenta.project.business.dto.solr.SolrArticleDTO;
 import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.HashMap;
 

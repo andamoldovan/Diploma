@@ -1,4 +1,4 @@
-package com.licenta.project.business;
+package com.licenta.project.business.services;
 
 import com.licenta.project.business.dto.ArticleDTO;
 import com.licenta.project.business.dto.UserDTO;

@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+@SuppressWarnings("ALL")
 @CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/top-headlines")
@@ -39,14 +40,11 @@ public class TopHeadlinesController {
             file.delete();
             chunkNumber = 1;
         }
-
         if(!file.exists()){
             try {
                 FileOutputStream fileOutputStream = new FileOutputStream(filepath);
                 ObjectOutputStream objectOut = new ObjectOutputStream(fileOutputStream);
-
                 articleService.setCollection("articles");
-
                 List<ArticleDTO> articles = articleService.getAllArticles();
                 objectOut.writeInt(articles.size());
                 for(ArticleDTO art : articles){
@@ -58,16 +56,13 @@ public class TopHeadlinesController {
                 e.printStackTrace();
             }
         }
-
         if(chunkSize == null) chunkSize = 20;
         if(chunkNumber == null) chunkNumber = 1;
 
         try{
             FileInputStream fileIn = new FileInputStream(filepath);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileIn);
-
             int fileSize = objectInputStream.readInt();
-            //System.out.println("\n\n\n SIZE OF THE INPUT FILE " + fileSize);
             List<ArticleDTO> articles = new ArrayList<>();
             while (fileSize > 0){
                 ArticleDTO art = (ArticleDTO) objectInputStream.readObject();
@@ -75,9 +70,7 @@ public class TopHeadlinesController {
                 fileSize--;
             }
             objectInputStream.close();
-
             Collections.reverse(articles);
-
             List<ArticleDTO> result = new ArrayList<>();
             for(int i = (chunkNumber - 1)*chunkSize; i < (chunkNumber * chunkSize) - 1; i++){
                 result.add(articles.get(i));

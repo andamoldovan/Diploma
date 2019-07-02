@@ -1,7 +1,6 @@
 package com.licenta.project.config;
 
-import com.licenta.project.business.UserService;
-import com.licenta.project.business.dto.UserDTO;
+import com.licenta.project.business.services.UserService;
 import com.licenta.project.entities.Article;
 import com.licenta.project.repositories.mongo.ArticleRepository;
 import com.licenta.project.repositories.mongo.UserRepository;
@@ -10,9 +9,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 
