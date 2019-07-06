@@ -79,7 +79,11 @@ public class UserServiceImpl implements UserService {
     public UserDTO updateFavoriteArticles(UserDTO userDTO) {
         User user = userRepository.findByEmailAndPassword(userDTO.getEmail(), userDTO.getPassword());
         if(user != null){
-            user.setFavoriteArticles(userDTO.getFavoriteArticles());
+            List<String> articles = new ArrayList<>();
+            for(String article : userDTO.getFavoriteArticles()){
+                if(article != null) articles.add(article);
+            }
+            user.setFavoriteArticles((ArrayList<String>) articles);
 
             return userTransformation.transform(userRepository.save(user));
         }

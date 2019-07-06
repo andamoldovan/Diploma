@@ -42,6 +42,7 @@ public class SolrController {
                     if(user.equals(userDTO.getId())) {
                         allSearchResults.remove(user);
                         allSearchResults.put(userDTO.getId(), articles);
+                        break;
                     }
                     else allSearchResults.put(userDTO.getId(), articles);
                 }
