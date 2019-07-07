@@ -25,10 +25,12 @@ public class RecommandationService {
         Recommender recommender = new Recommender();
 
         for(ArticleDTO article: articles){
-            double d = recommender.predictRating(allUsers, userDTO, article.getId());
-            if(d >= 3){
-                ArticleDTO articleDTO = articleService.getArticleById(article.getId());
-                predictions.add(articleDTO);
+            if(!userDTO.getArticleRatings().containsKey(article.getId())) {
+                double d = recommender.predictRating(allUsers, userDTO, article.getId());
+                if (d >= 3) {
+                    ArticleDTO articleDTO = articleService.getArticleById(article.getId());
+                    predictions.add(articleDTO);
+                }
             }
         }
         return predictions;

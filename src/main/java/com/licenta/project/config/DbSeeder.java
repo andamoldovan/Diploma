@@ -41,5 +41,7 @@ public class DbSeeder implements CommandLineRunner {
 //        hash.put("a2", 2);
 //        UserDTO user = new UserDTO("b", "b", "b", "b", "b",  preferences, 0, new ArrayList<>(), "12.00", hash);
 //        userService.saveUser(user);
+
+//        userRepository.deleteAll();
     }
 }
