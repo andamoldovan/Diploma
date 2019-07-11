@@ -2,11 +2,14 @@ package com.licenta.project.config;
 
 import com.licenta.project.business.services.UserService;
 import com.licenta.project.entities.Article;
+import com.licenta.project.entities.solr.SolrArticle;
 import com.licenta.project.repositories.mongo.ArticleRepository;
 import com.licenta.project.repositories.mongo.UserRepository;
+import com.licenta.project.repositories.solr.SolrArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.mongodb.core.query.BasicQuery;
+import org.springframework.data.solr.repository.SolrRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -18,12 +21,14 @@ public class DbSeeder implements CommandLineRunner {
     private final UserRepository userRepository;
     private final ArticleRepository articleRepository;
     private final UserService userService;
+    private final SolrArticleRepository solrRepository;
 
     @Autowired
-    public DbSeeder(UserRepository userRepository, ArticleRepository articleRepository, UserService userService){
+    public DbSeeder(UserRepository userRepository, ArticleRepository articleRepository, UserService userService, SolrArticleRepository solrRepository){
         this.userRepository = userRepository;
         this.articleRepository = articleRepository;
         this.userService = userService;
+        this.solrRepository = solrRepository;
     }
 
     @Override
@@ -43,5 +48,8 @@ public class DbSeeder implements CommandLineRunner {
 //        userService.saveUser(user);
 
 //        userRepository.deleteAll();
+
+        //solrRepository.deleteAll();
+
     }
 }

@@ -55,7 +55,7 @@ public class UserServiceImplTest {
 
     @Test
     public void saveUser(){
-        User user = new User("Anda", "Moldovan", "anda", "anda", "a", new ArrayList<>(), 0, new ArrayList<>(), "12.00", new HashMap<>());
+        User user = new User("firstname", "lastname", "anda", "email", "pass", new ArrayList<>(), 0, new ArrayList<>(), "12.00", new HashMap<>());
         Mockito.when(userRepository.save(user)).thenReturn(user);
 
         Assert.assertEquals(user, userRepository.save(user));

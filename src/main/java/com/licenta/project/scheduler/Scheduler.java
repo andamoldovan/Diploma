@@ -18,6 +18,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -47,7 +48,7 @@ public class Scheduler{
         this.articleService = articleService;
     }
 
-    //@Scheduled(fixedRate = 1000*60)
+   // @Scheduled(fixedRate = 1000*60)
     public void populateArticleTable(){
         TopHeadlines top = new TopHeadlines();
         articleRepository.setCollectionName(ARTICLES);
@@ -67,32 +68,32 @@ public class Scheduler{
         }
     }
 
-    //@Scheduled(fixedRate = 1700 * 60)
+   // @Scheduled(fixedRate = 1700 * 60)
     public void populateBusinessTable(){
         populateTableByDomain("business");
     }
 
-    //@Scheduled(fixedRate = 2300 * 60)
+   // @Scheduled(fixedRate = 2300 * 60)
     public void populateEntertainmentTable(){
         populateTableByDomain("entertainment");
     }
 
-   //@Scheduled(fixedRate = 3500 * 60)
+  // @Scheduled(fixedRate = 3500 * 60)
     public void populateHealthTable(){
         populateTableByDomain("health");
     }
 
-    //Scheduled(fixedRate = 4800 * 60)
+   // @Scheduled(fixedRate = 4800 * 60)
     public void populateGeneralTable(){
         populateTableByDomain("general");
     }
 
-    //@Scheduled(fixedRate = 5900 * 60)
+   // @Scheduled(fixedRate = 5900 * 60)
     public void populateScienceTable(){
         populateTableByDomain("science");
     }
 
-    //@Scheduled(fixedRate = 5300 * 60)
+   // @Scheduled(fixedRate = 5300 * 60)
     public void populateSportsTable(){
         populateTableByDomain("sports");
     }
